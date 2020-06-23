@@ -220,7 +220,7 @@ int SSL_renegotiate(SSL *);
 int SSL_renegotiate_pending(SSL *);
 const char *SSL_get_cipher_list(const SSL *, int);
 Cryptography_STACK_OF_SSL_CIPHER *SSL_get_ciphers(const SSL *);
-int ssl3_send_alert(SSL *, int, int);
+int SSL_send_alert(SSL *, int, int);
 
 /*  context */
 void SSL_CTX_free(SSL_CTX *);
@@ -823,4 +823,7 @@ int (*SSL_CTX_set_max_early_data)(SSL_CTX *, uint32_t) = NULL;
 #else
 static const long Cryptography_HAS_TLSv1_3 = 1;
 #endif
+const int SSL_send_alert(SSL *s, int level, int desc) {
+    return ssl3_send_alert(s, level, desc);
+}
 """
